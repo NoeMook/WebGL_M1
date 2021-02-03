@@ -123,6 +123,7 @@ class plane {
 		this.loaded=-1;
 		this.shader=null;
 		this.initAll();
+		//testing
 	}
 	// --------------------------------------------
 	initAll() {
