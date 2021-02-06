@@ -11,7 +11,7 @@ var distCENTER;
 
 var OBJ1 = null;
 var PLANE = null;
-var CAR1 = null;
+var OBJ1 = null;
 var colbuf = null;
 
 
@@ -69,6 +69,7 @@ class objmesh {
 		mat4.identity(mvMatrix);
 		mat4.translate(mvMatrix, distCENTER);
 		mat4.multiply(mvMatrix, rotMatrix);
+		
 		gl.uniformMatrix4fv(this.shader.rMatrixUniform, false, rotMatrix);
 		gl.uniformMatrix4fv(this.shader.mvMatrixUniform, false, mvMatrix);
 		gl.uniformMatrix4fv(this.shader.pMatrixUniform, false, pMatrix);
@@ -316,9 +317,9 @@ function webGLStart() {
 	distCENTER = vec3.create([0,-0.2,-4]);
 	
 	PLANE = new plane();
-	CAR1 = new objmesh('bunny.obj','lambert');
-	CAR1.setAlpha(0.8);
-	CAR1.setColor([0.9,0.4,0.3]);
+	OBJ1 = new objmesh('bunny.obj','lambert');
+	OBJ1.setAlpha(0.7);
+	OBJ1.setColor([0.9,0.4,0.3]);
 
 	
 	tick();
@@ -329,7 +330,7 @@ function drawScene() {
 
 	gl.clear(gl.COLOR_BUFFER_BIT);
 	PLANE.draw();
-	CAR1.draw();
+	OBJ1.draw();
 }
 
 
