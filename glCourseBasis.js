@@ -6,6 +6,7 @@ var gl;
 var mvMatrix = mat4.create();
 var pMatrix = mat4.create();
 var rotMatrix = mat4.create();
+var deplacement = mat4.create();
 var distCENTER;
 // =====================================================
 
@@ -48,10 +49,10 @@ class objmesh {
 		gl.vertexAttribPointer(this.shader.nAttrib, this.mesh.vertexBuffer.itemSize, gl.FLOAT, false, 0, 0);
 
 
-
 		this.shader.rMatrixUniform = gl.getUniformLocation(this.shader, "uRMatrix");
 		this.shader.mvMatrixUniform = gl.getUniformLocation(this.shader, "uMVMatrix");
 		this.shader.pMatrixUniform = gl.getUniformLocation(this.shader, "uPMatrix");
+		this.shader.deplacementMatrixUniform = gl.getUniformLocation(this.shader, "uDeplacement");
 
 		// Send alpha to the vertex :
 		this.locationAlpha = gl.getUniformLocation(this.shader,"alpha");
@@ -69,10 +70,14 @@ class objmesh {
 		mat4.identity(mvMatrix);
 		mat4.translate(mvMatrix, distCENTER);
 		mat4.multiply(mvMatrix, rotMatrix);
+
+		mat4.identity(deplacement);
+		mat4.identity(deplacement,vecD);
 		
 		gl.uniformMatrix4fv(this.shader.rMatrixUniform, false, rotMatrix);
 		gl.uniformMatrix4fv(this.shader.mvMatrixUniform, false, mvMatrix);
 		gl.uniformMatrix4fv(this.shader.pMatrixUniform, false, pMatrix);
+		gl.uniformMatrix4fv(this.shader.deplacementMatrixUniform, false, deplacement);
 	}
 	
 	// --------------------------------------------
