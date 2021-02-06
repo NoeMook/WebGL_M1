@@ -9,7 +9,7 @@ varying vec4 pos3D;
 varying vec3 N;
 
 uniform float alpha;
-attribute vec3 colorimp;
+uniform vec3 colorimp;
 
 varying float alphafs;
 varying vec3 color;

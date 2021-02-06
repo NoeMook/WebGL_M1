@@ -54,19 +54,12 @@ class objmesh {
 		this.shader.pMatrixUniform = gl.getUniformLocation(this.shader, "uPMatrix");
 
 		// Send alpha to the vertex :
-		var locationAlpha = gl.getUniformLocation(this.shader,"alpha");
-		gl.uniform1f(locationAlpha, this.alpha);
+		this.locationAlpha = gl.getUniformLocation(this.shader,"alpha");
+		gl.uniform1f(this.locationAlpha, this.alpha);
 
-
-		colbuf = gl.createBuffer();
-		gl.bindBuffer(gl.ARRAY_BUFFER, colbuf);
-		gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this.col), gl.STATIC_DRAW);
-
-		this.shader.vColor = gl.getAttribLocation(this.shader, "colorimp");
-		
-		gl.enableVertexAttribArray(this.shader.vColor);
-		gl.bindBuffer(gl.ARRAY_BUFFER, colbuf);
-		gl.vertexAttribPointer(this.shader.vColor, 3, gl.FLOAT, false, 0, 0);
+		//send color to the shader :
+		this.locationColor = gl.getUniformLocation(this.shader,"colorimp");
+		gl.uniform3fv(this.locationColor, this.col);
 
 
 	}
@@ -104,7 +97,7 @@ class objmesh {
 		this.alpha = alpha;
 	}
 	setColor(col){
-		this.col = col;
+		this.col = vec3.create(col);
 	}
 
 }
@@ -324,9 +317,8 @@ function webGLStart() {
 	
 	PLANE = new plane();
 	CAR1 = new objmesh('bunny.obj','lambert');
-	CAR1.setAlpha(0.2);
-	CAR1.setColor(0.9,0.4,0.3);
-	console.log(CAR1.col);
+	CAR1.setAlpha(0.8);
+	CAR1.setColor([0.9,0.4,0.3]);
 
 	
 	tick();
