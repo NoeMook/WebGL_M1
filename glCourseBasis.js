@@ -12,7 +12,7 @@ var distCENTER;
 
 var OBJ1 = null;
 var PLANE = null;
-var OBJ1 = null;
+var OBJ2 = null;
 var colbuf = null;
 
 
@@ -72,7 +72,7 @@ class objmesh {
 		mat4.multiply(mvMatrix, rotMatrix);
 
 		mat4.identity(deplacement);
-		mat4.identity(deplacement,vecD);
+		mat4.translate(deplacement, this.vecD);
 		
 		gl.uniformMatrix4fv(this.shader.rMatrixUniform, false, rotMatrix);
 		gl.uniformMatrix4fv(this.shader.mvMatrixUniform, false, mvMatrix);
@@ -104,6 +104,9 @@ class objmesh {
 	}
 	setColor(col){
 		this.col = vec3.create(col);
+	}
+	setCoord(xyz){
+		this.vecD = vec3.create(xyz);
 	}
 
 }
@@ -322,9 +325,16 @@ function webGLStart() {
 	distCENTER = vec3.create([0,-0.2,-4]);
 	
 	PLANE = new plane();
+
 	OBJ1 = new objmesh('bunny.obj','lambert');
 	OBJ1.setAlpha(0.7);
 	OBJ1.setColor([0.9,0.4,0.3]);
+	OBJ1.setCoord([-0.7,0.0,0.0]);
+
+	OBJ2 = new objmesh('bunny.obj','lambert');
+	OBJ2.setAlpha(0.9);
+	OBJ2.setColor([0.2,0.8,0.3]);
+	OBJ2.setCoord([0.7,0.0,0.0]);
 
 	
 	tick();
@@ -336,6 +346,7 @@ function drawScene() {
 	gl.clear(gl.COLOR_BUFFER_BIT);
 	PLANE.draw();
 	OBJ1.draw();
+	OBJ2.draw();
 }
 
 
