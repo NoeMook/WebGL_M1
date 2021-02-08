@@ -27,11 +27,6 @@
 		<topbox>
 			object_selector
 			<select id="selectobj">
-				<option value="Bunny">Bunny</option>
-				<option value="Starship">Starship</option>
-				<option value="Porsch">Porsch</option>
-				<option value="Mustang">Mustang</option>
-				<option value="ball">ball</option>
 			</select>
 		</topbox>
 		<mainbox>
@@ -43,14 +38,14 @@
 			<rightbox>
 				<alpha_color_pan>
 					<h2>aspect_parameters</h2>
-					<input type="range" id="Alpha" name="Alpha" min="0%" max="100%" oninput="value_of_alpha_range.value=Alpha.value">
+					<input type="range" id="Alpha" name="Alpha" min="0%" max="100%" value="0" oninput="value_of_alpha_range.value=Alpha.value;getAlpha();" >
 					<br>	
 					Alpha: 
 					<output id="value_of_alpha_range" name="value_of_alpha_range" for="Alpha">0</output> %
 					<br>
-					Color
+					<!-- Color
 					<br>
-					<input type="text" id="color" name="color" required maxlength="6" size="6">
+					<input type="text" id="color" name="color" required maxlength="6" size="6"> -->
 				</alpha_color_pan>
 				<position_scale_pan>
 					<h2>Colors_parameters</h2>
@@ -64,17 +59,16 @@
 						<button type="button" id="orange" onclick="getColor([0.8,0.6,0.2])"> </button>
 						<button type="button" id="purple" onclick="getColor([0.6,0.2,0.8])"> </button>
 						<button type="button" id="cyan" onclick="getColor([0.2,0.6,0.8])"> </button>
-						<input type="color">
+						<!-- <input type="color"> -->
 					</color_pan>
 				</position_scale_pan>
 				<submit_pan>
-					<!-- <input type="submit" name="submit" id="submit" value="Send" onclick="getValue();"> -->
-					<button type="button" onclick="getValue();">Send</button>
+					
 
 					<script>
 						function getAlpha(){
 							var input = document.getElementById("Alpha").value;
-							//alert(input);
+							scene[getSelectorValue()].setAlpha(input/100);
 							return input;
 						}
 					</script>
@@ -82,15 +76,13 @@
 					<script>
 						function getSelectorValue(){
 							var selector = document.getElementById("selectobj").value;
-							//alert(input);
 							return selector;
 						}
 					</script>
 
 					<script>
 						function getColor(getColorValue){
-							//alert(getColorValue)
-							outputColor = getColorValue;
+							scene[getSelectorValue()].setColor(getColorValue);
 						}
 					</script>
 

@@ -227,7 +227,7 @@ function initGL(canvas)
 		gl.viewportHeight = canvas.height;
 		gl.viewport(0, 0, canvas.width, canvas.height);
 
-		gl.clearColor(0.7, 0.7, 0.7, 1.0);
+		gl.clearColor(0.07, 0.07, 0.07, 1.0);
 		gl.enable(gl.DEPTH_TEST);
 		gl.enable(gl.CULL_FACE);
 		gl.cullFace(gl.BACK); 
@@ -341,6 +341,15 @@ function webGLStart() {
 	scene = new Array();
 	new objmesh('Bunny1','bunny.obj','lambert',0.7,[0.9,0.4,0.3],[-0.7,0.0,0.0]);
 	new objmesh('Bunny2','bunny.obj','lambert',0.6,[0.2,0.8,0.3],[0.7,0.0,0.0]);
+
+	// ==== Menu déroulant (sélection obj)
+	var selectMenu = document.getElementById('selectobj');
+	scene.forEach(function(el, i) {
+		var opt = document.createElement("option");
+		opt.innerText = el.name;
+		opt.value = i;
+		selectMenu.appendChild(opt);
+	});
 
 	
 	tick();
