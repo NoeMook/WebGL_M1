@@ -8,13 +8,86 @@
 	<script type="text/javascript" src="callbacks.js"></script>
 	<script type="text/javascript" src="glCourseBasis.js"></script>
 	<script type="text/javascript" src="objLoader.js"></script>
+	<link href="style.css" rel="stylesheet">
+	
+	<!-- Font Import --------------------------------------->
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@300;400;600&display=swap" rel="stylesheet">
 
 </head>
 
+<header>
+	<H1> < projet_webgl_mouquet_sakr_s2 > </H1>
+</header>
 
 <body onload="webGLStart();">
-	<canvas id="WebGL-test" style="border:none;" width="800" height="600"></canvas>
-	<br><br>
+	<Generalpan>
+		<topbox>
+			object_selector
+			<select id="selectobj">
+				<option value="Bunny">Bunny</option>
+				<option value="Starship">Starship</option>
+				<option value="Porsch">Porsch</option>
+				<option value="Mustang">Mustang</option>
+				<option value="ball">ball</option>
+			</select>
+		</topbox>
+		<mainbox>
+	
+			<leftbox>
+				<canvas id="WebGL-test" style="border:none;" width="800" height="600"></canvas>
+			</leftbox>
+		
+			<rightbox>
+				<alpha_color_pan>
+					<h2>aspect_parameters</h2>
+					<input type="range" id="Alpha" name="Alpha" min="0%" max="100%" oninput="value_of_alpha_range.value=Alpha.value">
+					<br>	
+					Alpha: 
+					<output id="value_of_alpha_range" name="value_of_alpha_range" for="Alpha">0</output> %
+					<br>
+					Color
+					<br>
+					<input type="text" id="color" name="color" required maxlength="6" size="6">
+				</alpha_color_pan>
+				<position_scale_pan>
+					<h2>geometrics_parameters</h2>
+					Position_X
+					<br>
+					<input type="text" id="posx" name="posx" required maxlength="4" size="4">
+					<br>
+					Position_Y
+					<br>
+					<input type="text" id="posy" name="posy" required maxlength="4" size="4">
+					<br>
+					Position_Z
+					<br>
+					<input type="text" id="posz" name="posz" required  maxlength="4" size="4">
+					<br>
+					<input type="range" id="Scale" name="Scale" min="0%" max="100%" oninput="value_of_scale_range.value=Scale.value">
+					<br>
+					Scale: 
+					<output id="value_of_scale_range" name="value_of_scale_range" for="Scale">0</output> %
+				</position_scale_pan>
+				<submit_pan>
+					<!-- <input type="submit" name="submit" id="submit" value="Send" onclick="getValue();"> -->
+					<button type="button" onclick="getValue();">Send</button>
+					<button type="button" onclick="getValueChanged();">newData</button>
+
+					<script>
+						function getValue(){
+							var input = document.getElementById("Alpha").value;
+
+							alert(input);
+						}
+					</script>
+
+				</submit_pan>
+			</rightbox>
+		</mainbox>
+	</Generalpan>
+	
+
 </body>
 
 

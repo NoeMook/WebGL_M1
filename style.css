@@ -1,0 +1,73 @@
+H1{
+    text-align: center;
+    font-family: 'Inconsolata', monospace;
+    font-weight: 600;
+}
+
+h2{
+    /* text-align: center; */
+    font-family: 'Inconsolata', monospace;
+    font-weight: 300;
+}
+
+body{
+    background-color: rgb(48, 48, 48);
+    color: azure;
+    font-family: 'Inconsolata', monospace;
+    font-weight: 400;
+}
+
+input[type=text]{
+    background-color: rgb(48, 48, 48);
+    color: azure;
+    border: 1px solid rgba(240, 255, 255, 0.7);
+    font-size: 0.8em
+}
+
+/* input[type=text]:invalid{
+    border: 1px solid rgba(255, 100, 100, 0.7);
+} */
+
+button[type=button]{
+    width: 100%;
+    height: 50px;
+    font-size: 1.2em;
+    font-family: 'Inconsolata', monospace;
+    font-weight: 600;
+}
+
+select{
+    font-size: 0.9em;
+    font-family: 'Inconsolata', monospace;
+    font-weight: 300;
+}
+
+Generalpan{
+    /* border: 1px solid yellow; */
+    display: flex;
+    flex-direction: column;
+}
+
+topbox{
+    /* border: 1px solid red; */
+    text-align: center;
+    align-items: center;
+    height: 30px;
+    font-size: 1.2em;
+}
+
+mainbox{
+    /* border: 1px solid yellow; */
+    display: flex;
+    justify-content: center;
+    font-size: 1.2em;
+}
+
+rightbox{
+    padding: 10px;
+    padding-left: 50px;
+    /* border: 1px solid red; */
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: 50%, 50%; 
+}
