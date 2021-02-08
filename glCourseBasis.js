@@ -14,6 +14,7 @@ var OBJ1 = null;
 var PLANE = null;
 var OBJ2 = null;
 var colbuf = null;
+var outputColor;
 
 
 // =====================================================
@@ -346,11 +347,22 @@ function webGLStart() {
 // =====================================================
 function drawScene() {
 
+	var selector = getSelectorValue();
+
+	if (selector == "Bunny"){
+		OBJ1.setAlpha(getAlpha()/100);
+		OBJ1.setColor(outputColor);
+		
+	} else if (selector == "Mustang"){
+		OBJ2.setAlpha(getAlpha()/100);
+		OBJ2.setColor(outputColor);
+	}
+
 	gl.clear(gl.COLOR_BUFFER_BIT);
 	PLANE.draw();
 	OBJ1.draw();
 	OBJ2.draw();
 }
 
-
+// =====================================================
 
