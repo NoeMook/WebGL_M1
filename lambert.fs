@@ -3,15 +3,13 @@ precision mediump float;
 
 varying vec4 pos3D; //point de l'objet traite
 varying vec3 N;
-varying float alphafs;
+uniform float alpha;
 varying vec3 color; //couleur de l'objet
 
 vec3 Li = vec3(3.0); // puissance de la source lumineuse
 float Ks = 0.3; //aspect brillant
 
 const float pi = 3.1415;
-
-uniform float alpha;
 
 // ==============================================
 
