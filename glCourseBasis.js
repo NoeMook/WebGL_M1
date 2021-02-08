@@ -15,7 +15,14 @@ var PLANE = null;
 var OBJ2 = null;
 var colbuf = null;
 
+var slider = document.getElementById("myRange");
+var output = document.getElementById("demo");
+output.innerHTML = slider.value; // Display the default slider value
 
+// Update the current slider value (each time you drag the slider handle)
+slider.oninput = function() {
+  output.innerHTML = this.value;
+} 
 // =====================================================
 // OBJET 3D, lecture fichier obj
 // =====================================================
@@ -56,11 +63,11 @@ class objmesh {
 
 		// Send alpha to the vertex :
 		this.locationAlpha = gl.getUniformLocation(this.shader,"alpha");
-		gl.uniform1f(this.locationAlpha, this.alpha);
+		
 
 		//send color to the shader :
 		this.locationColor = gl.getUniformLocation(this.shader,"colorimp");
-		gl.uniform3fv(this.locationColor, this.col);
+		
 
 
 	}
@@ -78,6 +85,9 @@ class objmesh {
 		gl.uniformMatrix4fv(this.shader.mvMatrixUniform, false, mvMatrix);
 		gl.uniformMatrix4fv(this.shader.pMatrixUniform, false, pMatrix);
 		gl.uniformMatrix4fv(this.shader.deplacementMatrixUniform, false, deplacement);
+
+		gl.uniform1f(this.locationAlpha, this.alpha);
+		gl.uniform3fv(this.locationColor, this.col);
 	}
 	
 	// --------------------------------------------
@@ -332,7 +342,7 @@ function webGLStart() {
 	OBJ1.setCoord([-0.7,0.0,0.0]);
 
 	OBJ2 = new objmesh('bunny.obj','lambert');
-	OBJ2.setAlpha(0.9);
+	OBJ2.setAlpha(0.6);
 	OBJ2.setColor([0.2,0.8,0.3]);
 	OBJ2.setCoord([0.7,0.0,0.0]);
 

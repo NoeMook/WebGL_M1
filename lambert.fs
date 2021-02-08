@@ -11,6 +11,8 @@ float Ks = 0.3; //aspect brillant
 
 const float pi = 3.1415;
 
+uniform float alpha;
+
 // ==============================================
 
 
@@ -35,5 +37,5 @@ void main(void)
 	vec3 Fr = (1.0-Ks) * Kd / pi + (n+2.0)/(2.0*pi) * Ks * cosAlphaN; //calcul de phong
 
 	vec3 Lo = Li * Fr * cosTheta;
-	gl_FragColor = vec4(Lo,alphafs);
+	gl_FragColor = vec4(Lo,alpha);
 }
