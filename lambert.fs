@@ -31,7 +31,7 @@ void main(void)
 
 	float n = 100.0; //taille du lobe
 
-	vec3 R = reflect(-Vi,nN); // vecteur refléchi de la lumière
+	vec3 R = reflect(-Vi,nN); // vecteur refléchi de la lumière (-Vi car on considère les rayons de lumières vers l'objet)
 	float cosAlpha = ddot(normalize(R),Vo); //cosinus de l'angle alpha (entre le vecteur réfléchi et le vecteur de vision)
 	float cosAlphaN = pow(cosAlpha,n); // cosAlpha a la puissance n
 
