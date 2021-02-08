@@ -10,11 +10,13 @@ var deplacement = mat4.create();
 var distCENTER;
 // =====================================================
 
-var OBJ1 = null;
+//var OBJ1 = null;
 var PLANE = null;
-var OBJ2 = null;
+//var OBJ2 = null;
 var colbuf = null;
 var outputColor;
+
+var scene;
 
 
 // =====================================================
@@ -24,12 +26,18 @@ var outputColor;
 class objmesh {
 
 	// --------------------------------------------
-	constructor(objFname,shaderName) {
+	constructor(name,objFname,shaderName,alpha,col,coords) {
+		this.name = name;
 		this.objName = objFname;
 		this.shaderName = shaderName;
 		this.loaded = -1;
 		this.shader = null;
 		this.mesh = null;
+		this.alpha = alpha;
+		this.col = col;
+		this.vecD = coords;
+
+		scene.push(this);
 		
 		loadObjFile(this);
 		loadShaders(this);
@@ -330,15 +338,9 @@ function webGLStart() {
 	
 	PLANE = new plane();
 
-	OBJ1 = new objmesh('bunny.obj','lambert');
-	OBJ1.setAlpha(0.7);
-	OBJ1.setColor([0.9,0.4,0.3]);
-	OBJ1.setCoord([-0.7,0.0,0.0]);
-
-	OBJ2 = new objmesh('bunny.obj','lambert');
-	OBJ2.setAlpha(0.6);
-	OBJ2.setColor([0.2,0.8,0.3]);
-	OBJ2.setCoord([0.7,0.0,0.0]);
+	scene = new Array();
+	new objmesh('Bunny1','bunny.obj','lambert',0.7,[0.9,0.4,0.3],[-0.7,0.0,0.0]);
+	new objmesh('Bunny2','bunny.obj','lambert',0.6,[0.2,0.8,0.3],[0.7,0.0,0.0]);
 
 	
 	tick();
@@ -347,21 +349,21 @@ function webGLStart() {
 // =====================================================
 function drawScene() {
 
-	var selector = getSelectorValue();
+	// var selector = getSelectorValue();
 
-	if (selector == "Bunny"){
-		OBJ1.setAlpha(getAlpha()/100);
-		OBJ1.setColor(outputColor);
+	// if (selector == "Bunny"){
+	// 	scene[0].setAlpha(getAlpha()/100);
+	// 	scene[0].setColor(outputColor);
 		
-	} else if (selector == "Mustang"){
-		OBJ2.setAlpha(getAlpha()/100);
-		OBJ2.setColor(outputColor);
-	}
+	// } else if (selector == "Mustang"){
+	// 	scene[1].setAlpha(getAlpha()/100);
+	// 	scene[1].setColor(outputColor);
+	// }
 
 	gl.clear(gl.COLOR_BUFFER_BIT);
 	PLANE.draw();
-	OBJ1.draw();
-	OBJ2.draw();
+	scene[0].draw();
+	scene[1].draw();
 }
 
 // =====================================================
