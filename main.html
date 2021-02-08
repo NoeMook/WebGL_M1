@@ -51,36 +51,48 @@
 					<input type="text" id="color" name="color" required maxlength="6" size="6">
 				</alpha_color_pan>
 				<position_scale_pan>
-					<h2>geometrics_parameters</h2>
-					Position_X
-					<br>
-					<input type="text" id="posx" name="posx" required maxlength="4" size="4">
-					<br>
-					Position_Y
-					<br>
-					<input type="text" id="posy" name="posy" required maxlength="4" size="4">
-					<br>
-					Position_Z
-					<br>
-					<input type="text" id="posz" name="posz" required  maxlength="4" size="4">
-					<br>
-					<input type="range" id="Scale" name="Scale" min="0%" max="100%" oninput="value_of_scale_range.value=Scale.value">
-					<br>
-					Scale: 
-					<output id="value_of_scale_range" name="value_of_scale_range" for="Scale">0</output> %
+					<h2>Colors_parameters</h2>
+					<color_pan>
+						<button type="button" id="red" onclick="getColor([0.8,0.2,0.2])"> </button>
+						<button type="button" id="blue" onclick="getColor([0.2,0.4,0.8])"> </button>
+						<button type="button" id="green"onclick="getColor([0.2,0.8,0.3])"> </button>
+						<button type="button" id="white" onclick="getColor([0.8,0.8,0.8])"> </button>
+						<button type="button" id="black" onclick="getColor([0.2,0.2,0.2])"> </button>
+						<button type="button" id="yellow" onclick="getColor([0.8,0.8,0.4])"> </button>
+						<button type="button" id="orange" onclick="getColor([0.8,0.6,0.2])"> </button>
+						<button type="button" id="purple" onclick="getColor([0.6,0.2,0.8])"> </button>
+						<button type="button" id="cyan" onclick="getColor([0.2,0.6,0.8])"> </button>
+						<input type="color">
+					</color_pan>
 				</position_scale_pan>
 				<submit_pan>
 					<!-- <input type="submit" name="submit" id="submit" value="Send" onclick="getValue();"> -->
 					<button type="button" onclick="getValue();">Send</button>
-					<button type="button" onclick="getValueChanged();">newData</button>
 
 					<script>
-						function getValue(){
+						function getAlpha(){
 							var input = document.getElementById("Alpha").value;
-
-							alert(input);
+							//alert(input);
+							return input;
 						}
 					</script>
+
+					<script>
+						function getSelectorValue(){
+							var selector = document.getElementById("selectobj").value;
+							//alert(input);
+							return selector;
+						}
+					</script>
+
+					<script>
+						function getColor(getColorValue){
+							//alert(getColorValue)
+							outputColor = getColorValue;
+						}
+					</script>
+
+
 
 				</submit_pan>
 			</rightbox>

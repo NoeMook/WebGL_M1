@@ -24,6 +24,12 @@ input[type=text]{
     font-size: 0.8em
 }
 
+input[type=color]{
+    width: 100%;
+    border: none;
+    height: 50px;
+}
+
 /* input[type=text]:invalid{
     border: 1px solid rgba(255, 100, 100, 0.7);
 } */
@@ -34,6 +40,78 @@ button[type=button]{
     font-size: 1.2em;
     font-family: 'Inconsolata', monospace;
     font-weight: 600;
+}
+
+color_pan{
+    /* border: 1px solid orange;  */
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 5px;
+}
+
+button[id=red]{
+    width: 30%;
+    height: 50px;
+    background-color: red;
+    border: none;
+    margin: 3px;
+}
+button[id=blue]{
+    width: 30%;
+    height: 50px;
+    background-color: blue;
+    border: none;
+    margin: 3px
+}
+button[id=green]{
+    width: 30%;
+    height: 50px;
+    background-color: green;
+    border: none;
+    margin: 3px
+}
+button[id=white]{
+    width: 30%;
+    height: 50px;
+    background-color: white;
+    border: none;
+    margin: 3px
+}
+button[id=black]{
+    width: 30%;
+    height: 50px;
+    background-color: black;
+    border: none;
+    margin: 3px
+}
+button[id=yellow]{
+    width: 30%;
+    height: 50px;
+    background-color: yellow;
+    border: none;
+    margin: 3px
+}
+button[id=orange]{
+    width: 30%;
+    height: 50px;
+    background-color: orange;
+    border: none;
+    margin: 3px
+}
+button[id=purple]{
+    width: 30%;
+    height: 50px;
+    background-color: purple;
+    border: none;
+    margin: 3px
+}
+button[id=cyan]{
+    width: 30%;
+    height: 50px;
+    background-color: cyan;
+    border: none;
+    margin: 3px
 }
 
 select{
