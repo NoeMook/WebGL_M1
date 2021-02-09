@@ -43,6 +43,12 @@
 					Alpha: 
 					<output id="value_of_alpha_range" name="value_of_alpha_range" for="Alpha">0</output> %
 					<br>
+					<br>
+					<input type="range" id="Shine" name="Shine" min="0" max="1000" value="0" oninput="value_of_shine_range.value=Shine.value;getShine();" >
+					<br>	
+					Shininess: 
+					<output id="value_of_shine_range" name="value_of_shine_range" for="Shine">0</output>
+					<br>
 					<!-- Color
 					<br>
 					<input type="text" id="color" name="color" required maxlength="6" size="6"> -->
@@ -69,7 +75,13 @@
 						function getAlpha(){
 							var input = document.getElementById("Alpha").value;
 							scene[getSelectorValue()].setAlpha(input/100);
-							return input;
+						}
+					</script>
+
+					<script>
+						function getShine(){
+							var input = document.getElementById("Shine").value;
+							scene[getSelectorValue()].setN(input);
 						}
 					</script>
 

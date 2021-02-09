@@ -5,6 +5,7 @@ varying vec4 pos3D; //point de l'objet traite
 varying vec3 N;
 uniform float alpha;
 varying vec3 color; //couleur de l'objet
+uniform float n; //taille du lobe
 
 vec3 Li = vec3(3.0); // puissance de la source lumineuse
 float Ks = 0.3; //aspect brillant
@@ -29,14 +30,15 @@ void main(void)
 	float cosTheta = ddot(nN,Vi); // vu que les deux vecteurs sont normalisés alors le produit scalaire = cos(theta)
 	vec3 Kd = color; //couleur de reflection de l'objet (aspect diffus)
 
-	float n = 100.0; //taille du lobe
-
 	vec3 R = reflect(-Vi,nN); // vecteur refléchi de la lumière (-Vi car on considère les rayons de lumières vers l'objet)
 	float cosAlpha = ddot(normalize(R),Vo); //cosinus de l'angle alpha (entre le vecteur réfléchi et le vecteur de vision)
 	float cosAlphaN = pow(cosAlpha,n); // cosAlpha a la puissance n
-
-	vec3 Fr = (1.0-Ks) * Kd / pi + (n+2.0)/(2.0*pi) * Ks * cosAlphaN; //calcul de phong
-
+	vec3 Fr;
+	if (n == 0.0) {
+		Fr = (1.0-Ks) * Kd / pi + (n+2.0)/(2.0*pi) * Ks * 0.0;
+	} else {
+		Fr = (1.0-Ks) * Kd / pi + (n+2.0)/(2.0*pi) * Ks * cosAlphaN; //calcul de phong
+	}
 	vec3 Lo = Li * Fr * cosTheta;
 	gl_FragColor = vec4(Lo,alpha);
 }

@@ -36,6 +36,7 @@ class objmesh {
 		this.alpha = alpha;
 		this.col = col;
 		this.vecD = coords;
+		this.N = 50.0;
 
 		scene.push(this);
 		
@@ -69,6 +70,8 @@ class objmesh {
 
 		//send color to the shader :
 		this.locationColor = gl.getUniformLocation(this.shader,"colorimp");
+
+		this.locationN = gl.getUniformLocation(this.shader,"n");
 		
 
 
@@ -90,6 +93,7 @@ class objmesh {
 
 		gl.uniform1f(this.locationAlpha, this.alpha);
 		gl.uniform3fv(this.locationColor, this.col);
+		gl.uniform1f(this.locationN, this.N);
 	}
 	
 	// --------------------------------------------
@@ -119,6 +123,9 @@ class objmesh {
 	}
 	setCoord(xyz){
 		this.vecD = vec3.create(xyz);
+	}
+	setN(n){
+		this.N = n;
 	}
 
 }

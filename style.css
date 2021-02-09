@@ -142,10 +142,11 @@ mainbox{
 }
 
 rightbox{
-    padding: 10px;
-    padding-left: 50px;
+    padding: 30px;
+    /* padding-left: 50px; */
     /* border: 1px solid red; */
     display: grid;
     grid-template-columns: auto;
     grid-template-rows: 50%, 50%; 
+    background-color: rgb(54, 54, 54);
 }
