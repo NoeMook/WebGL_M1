@@ -371,8 +371,9 @@ function drawScene() {
 
 	gl.clear(gl.COLOR_BUFFER_BIT);
 	PLANE.draw();
-	scene[0].draw();
-	scene[1].draw();
+	scene.forEach(el => {
+		el.draw();
+	});
 }
 
 // =====================================================
