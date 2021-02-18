@@ -6,17 +6,14 @@ var gl;
 var mvMatrix = mat4.create();
 var pMatrix = mat4.create();
 var rotMatrix = mat4.create();
-var deplacement = mat4.create();
+var deplacement = mat4.create(); // matrice deplacement de l'objet dans l'espace.
 var distCENTER;
 // =====================================================
-
-//var OBJ1 = null;
 var PLANE = null;
-//var OBJ2 = null;
 var colbuf = null;
 var outputColor;
 
-var scene;
+var scene; //tableau des obj à afficher
 
 
 // =====================================================
@@ -364,18 +361,6 @@ function webGLStart() {
 
 // =====================================================
 function drawScene() {
-
-	// var selector = getSelectorValue();
-
-	// if (selector == "Bunny"){
-	// 	scene[0].setAlpha(getAlpha()/100);
-	// 	scene[0].setColor(outputColor);
-		
-	// } else if (selector == "Mustang"){
-	// 	scene[1].setAlpha(getAlpha()/100);
-	// 	scene[1].setColor(outputColor);
-	// }
-
 	gl.clear(gl.COLOR_BUFFER_BIT);
 	PLANE.draw();
 	scene.forEach(el => {
