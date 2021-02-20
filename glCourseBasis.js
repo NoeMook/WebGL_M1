@@ -68,6 +68,7 @@ class objmesh {
 		//send color to the shader :
 		this.locationColor = gl.getUniformLocation(this.shader,"colorimp");
 
+		//retrieve the n (shininess)
 		this.locationN = gl.getUniformLocation(this.shader,"n");
 		
 
@@ -88,6 +89,7 @@ class objmesh {
 		gl.uniformMatrix4fv(this.shader.pMatrixUniform, false, pMatrix);
 		gl.uniformMatrix4fv(this.shader.deplacementMatrixUniform, false, deplacement);
 
+		//sending data to the shaders
 		gl.uniform1f(this.locationAlpha, this.alpha);
 		gl.uniform3fv(this.locationColor, this.col);
 		gl.uniform1f(this.locationN, this.N);

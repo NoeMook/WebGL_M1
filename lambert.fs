@@ -40,5 +40,6 @@ void main(void)
 		Fr = (1.0-Ks) * Kd / pi + (n+2.0)/(2.0*pi) * Ks * cosAlphaN; //calcul de phong
 	}
 	vec3 Lo = Li * Fr * cosTheta;
+
 	gl_FragColor = vec4(Lo,alpha);
 }
