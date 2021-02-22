@@ -100,8 +100,8 @@ class objmesh {
 		if(this.shader && this.loaded==4 && this.mesh != null) {
 			this.setShadersParams();
 			this.setMatrixUniforms();
-			gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.mesh.indexBuffer);
-			gl.drawElements(gl.TRIANGLES, this.mesh.indexBuffer.numItems, gl.UNSIGNED_SHORT, 0);
+			gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.mesh.indexBufferFil);
+			gl.drawElements(gl.LINES, this.mesh.indexBufferFil.numItems, gl.UNSIGNED_SHORT, 0);
 		}
 	}
 	//---------------------------------------------
@@ -257,12 +257,28 @@ loadObjFile = function(OBJ3D)
 			var tmpMesh = new OBJ.Mesh(xhttp.responseText);
 			OBJ.initMeshBuffers(gl,tmpMesh);
 			OBJ3D.mesh=tmpMesh;
+			
+			OBJ3D.mesh.indicesFil = [];
+
+			for (let i = 0; i < tmpMesh.indices.length; i+=3) {
+				OBJ3D.mesh.indicesFil.push(tmpMesh.indices[i],tmpMesh.indices[i+1]);
+				OBJ3D.mesh.indicesFil.push(tmpMesh.indices[i+1],tmpMesh.indices[i+2]);
+				OBJ3D.mesh.indicesFil.push(tmpMesh.indices[i+2],tmpMesh.indices[i]);
+			}
+			
+			OBJ3D.mesh.indexBufferFil = gl.createBuffer();
+    		gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, OBJ3D.mesh.indexBufferFil);
+			gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(OBJ3D.mesh.indicesFil), gl.STATIC_DRAW);
+			OBJ3D.mesh.indexBufferFil.itemSize = 1;
+			OBJ3D.mesh.indexBufferFil.numItems = OBJ3D.mesh.indicesFil.length;
+
 		}
 	}
 
 	xhttp.open("GET", OBJ3D.objName, true);
 	xhttp.send();
 }
+
 
 
 
@@ -356,8 +372,6 @@ function webGLStart() {
 		opt.value = i;
 		selectMenu.appendChild(opt);
 	});
-
-	
 	tick();
 }
 
@@ -369,6 +383,4 @@ function drawScene() {
 		el.draw();
 	});
 }
-
 // =====================================================
-
