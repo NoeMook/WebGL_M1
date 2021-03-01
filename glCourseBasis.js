@@ -23,14 +23,14 @@ var scene; //tableau des obj à afficher
 class objmesh {
 
 	// --------------------------------------------
-	constructor(name,objFname,shaderName,alpha,col,coords) {
+	constructor(name,objFname,col,coords) {
 		this.name = name;
 		this.objName = objFname;
-		this.shaderName = shaderName;
+		//this.shaderName = 'obj';
 		this.loaded = -1;
-		this.shader = null;
+		//this.shader = null;
 		this.mesh = null;
-		this.alpha = alpha;
+		this.alpha = 0.7;
 		this.col = col;
 		this.vecD = coords;
 		this.N = 50.0;
@@ -39,67 +39,135 @@ class objmesh {
 		
 		loadObjFile(this);
 		loadShaders(this);
+
+		this.shader1={frame:'lambert'};
+		loadShadersNEW(this.shader1);
+
+		this.shader2={frame:'wireframe'};
+		loadShadersNEW(this.shader2);
 	}
 
 	// --------------------------------------------
 	setShadersParams() {
+
+		mat4.identity(mvMatrix,);
+		mat4.translate(mvMatrix, distCENTER);
+		mat4.multiply(mvMatrix, rotMatrix);
+		mat4.identity(deplacement);
+		mat4.translate(deplacement, this.vecD);
+
 		gl.useProgram(this.shader);
 
-		this.shader.vAttrib = gl.getAttribLocation(this.shader, "aVertexPosition");
-		gl.enableVertexAttribArray(this.shader.vAttrib);
-		gl.bindBuffer(gl.ARRAY_BUFFER, this.mesh.vertexBuffer);
-		gl.vertexAttribPointer(this.shader.vAttrib, this.mesh.vertexBuffer.itemSize, gl.FLOAT, false, 0, 0);
+		// this.shader.vAttrib = gl.getAttribLocation(this.shader, "aVertexPosition");
+		// gl.enableVertexAttribArray(this.shader.vAttrib);
+		// gl.bindBuffer(gl.ARRAY_BUFFER, this.mesh.vertexBuffer);
+		// gl.vertexAttribPointer(this.shader.vAttrib, this.mesh.vertexBuffer.itemSize, gl.FLOAT, false, 0, 0);
 
-		this.shader.nAttrib = gl.getAttribLocation(this.shader, "aVertexNormal");
-		gl.enableVertexAttribArray(this.shader.nAttrib);
-		gl.bindBuffer(gl.ARRAY_BUFFER, this.mesh.normalBuffer);
-		gl.vertexAttribPointer(this.shader.nAttrib, this.mesh.vertexBuffer.itemSize, gl.FLOAT, false, 0, 0);
+		// this.shader.nAttrib = gl.getAttribLocation(this.shader, "aVertexNormal");
+		// gl.enableVertexAttribArray(this.shader.nAttrib);
+		// gl.bindBuffer(gl.ARRAY_BUFFER, this.mesh.normalBuffer);
+		// gl.vertexAttribPointer(this.shader.nAttrib, this.mesh.vertexBuffer.itemSize, gl.FLOAT, false, 0, 0);
 
+		//vAttrib and nAttrib for Shader1
+		this.shader1.vAttrib = gl.getAttriblocation(this.shader1.shader, "aVertexPosition");
+		gl.enableVertexAttribArray(this.shader1.vAttrib);
+		gl.bindBuffer(gl.ARRAY_BUFFER, this.mech.vertexBuffer);
+		gl.vertexAttribPointer(this.shader1.vAttrib, this.mesh.vertexBuffer.itemSize, gl.float, false, 0, 0);
 
-		this.shader.rMatrixUniform = gl.getUniformLocation(this.shader, "uRMatrix");
-		this.shader.mvMatrixUniform = gl.getUniformLocation(this.shader, "uMVMatrix");
-		this.shader.pMatrixUniform = gl.getUniformLocation(this.shader, "uPMatrix");
-		this.shader.deplacementMatrixUniform = gl.getUniformLocation(this.shader, "uDeplacement");
+		this.shader1.nAttrib = gl.getAttriblocation(this.shader1.shader, "aVertexNormal");
+		gl.enableVertexAttribArray(this.shader1.nAttrib);
+		gl.bindBuffer(gl.ARRAY_BUFFER, this.mech.normalBuffer);
+		gl.vertexAttribPointer(this.shader1.nAttrib, this.mesh.vertexBuffer.itemSize, gl.float, false, 0, 0);
+
+		//vAttrib and nAttrib for Shader2
+		this.shader2.vAttrib = gl.getAttriblocation(this.shader2.shader, "aVertexPosition");
+		gl.enableVertexAttribArray(this.shader2.vAttrib);
+		gl.bindBuffer(gl.ARRAY_BUFFER, this.mech.vertexBuffer);
+		gl.vertexAttribPointer(this.shader2.vAttrib, this.mesh.vertexBuffer.itemSize, gl.float, false, 0, 0);
+
+		this.shader2.nAttrib = gl.getAttriblocation(this.shader2.shader, "aVertexNormal");
+		gl.enableVertexAttribArray(this.shader2.nAttrib);
+		gl.bindBuffer(gl.ARRAY_BUFFER, this.mech.normalBuffer);
+		gl.vertexAttribPointer(this.shader2.nAttrib, this.mesh.vertexBuffer.itemSize, gl.float, false, 0, 0);
+
+		this.shader1.rMatrixUniform = gl.getUniformLocation(this.shader1, "uRMatrix");
+		this.shader1.mvMatrixUniform = gl.getUniformLocation(this.shader1, "uMVMatrix");
+		this.shader1.pMatrixUniform = gl.getUniformLocation(this.shader1, "uPMatrix");
+		this.shader1.deplacementMatrixUniform = gl.getUniformLocation(this.shader, "uDeplacement");
+
+		this.shader2.rMatrixUniform = gl.getUniformLocation(this.shader2, "uRMatrix");
+		this.shader2.mvMatrixUniform = gl.getUniformLocation(this.shader2, "uMVMatrix");
+		this.shader2.pMatrixUniform = gl.getUniformLocation(this.shader2, "uPMatrix");
+		this.shader2.deplacementMatrixUniform = gl.getUniformLocation(this.shader2, "uDeplacement");
+
+		// this.shader.rMatrixUniform = gl.getUniformLocation(this.shader, "uRMatrix");
+		// this.shader.mvMatrixUniform = gl.getUniformLocation(this.shader, "uMVMatrix");
+		// this.shader.pMatrixUniform = gl.getUniformLocation(this.shader, "uPMatrix");
+		// this.shader.deplacementMatrixUniform = gl.getUniformLocation(this.shader, "uDeplacement");
 
 		// Send alpha to the vertex :
-		this.locationAlpha = gl.getUniformLocation(this.shader,"alpha");
-		
+		// this.locationAlpha = gl.getUniformLocation(this.shader,"alpha");
+		// //send color to the shader :
+		// this.locationColor = gl.getUniformLocation(this.shader,"colorimp");
+		// //retrieve the n (shininess)
+		// this.locationN = gl.getUniformLocation(this.shader,"n");
 
-		//send color to the shader :
-		this.locationColor = gl.getUniformLocation(this.shader,"colorimp");
+		this.shader1.locationAlpha = gl.getUniformLocation(this.shader1,"alpha");
+		this.shader1.locationColor = gl.getUniformLocation(this.shader1,"colorimp");
+		this.shader1.locationN = gl.getUniformLocation(this.shader1,"n");
+		gl.uniformMatrix4fv(this.shader1.rMatrixUniform, false, rotMatrix);
+		gl.uniformMatrix4fv(this.shader1.mvMatrixUniform, false, mvMatrix);
+		gl.uniformMatrix4fv(this.shader1.pMatrixUniform, false, pMatrix);
+		gl.uniformMatrix4fv(this.shader1.deplacementMatrixUniform, false, deplacement);
 
-		//retrieve the n (shininess)
-		this.locationN = gl.getUniformLocation(this.shader,"n");
-		
+		this.shader2.locationAlpha = gl.getUniformLocation(this.shader2,"alpha");
+		this.shader2.locationColor = gl.getUniformLocation(this.shader2,"colorimp");
+		this.shader2.locationN = gl.getUniformLocation(this.shader2,"n");
+		gl.uniformMatrix4fv(this.shader2.rMatrixUniform, false, rotMatrix);
+		gl.uniformMatrix4fv(this.shader2.mvMatrixUniform, false, mvMatrix);
+		gl.uniformMatrix4fv(this.shader2.pMatrixUniform, false, pMatrix);
+		gl.uniformMatrix4fv(this.shader2.deplacementMatrixUniform, false, deplacement);
 
+		gl.uniform1f(this.shader1.locationAlpha, this.alpha);
+		gl.uniform3fv(this.shader1.locationColor, this.col);
+		gl.uniform1f(this.shader1.locationN, this.N);
 
+		gl.uniform1f(this.shader2.locationAlpha, this.alpha);
+		gl.uniform3fv(this.shader2.locationColor, this.col);
+		gl.uniform1f(this.shader2.locationN, this.N);
 	}
 	
 	// --------------------------------------------
-	setMatrixUniforms() {
-		mat4.identity(mvMatrix);
-		mat4.translate(mvMatrix, distCENTER);
-		mat4.multiply(mvMatrix, rotMatrix);
+	// setMatrixUniforms() {
+	// 	mat4.identity(mvMatrix);
+	// 	mat4.translate(mvMatrix, distCENTER);
+	// 	mat4.multiply(mvMatrix, rotMatrix);
 
-		mat4.identity(deplacement);
-		mat4.translate(deplacement, this.vecD);
+	// 	mat4.identity(deplacement);
+	// 	mat4.translate(deplacement, this.vecD);
 		
-		gl.uniformMatrix4fv(this.shader.rMatrixUniform, false, rotMatrix);
-		gl.uniformMatrix4fv(this.shader.mvMatrixUniform, false, mvMatrix);
-		gl.uniformMatrix4fv(this.shader.pMatrixUniform, false, pMatrix);
-		gl.uniformMatrix4fv(this.shader.deplacementMatrixUniform, false, deplacement);
+	// 	gl.uniformMatrix4fv(this.shader.rMatrixUniform, false, rotMatrix);
+	// 	gl.uniformMatrix4fv(this.shader.mvMatrixUniform, false, mvMatrix);
+	// 	gl.uniformMatrix4fv(this.shader.pMatrixUniform, false, pMatrix);
+	// 	gl.uniformMatrix4fv(this.shader.deplacementMatrixUniform, false, deplacement);
 
-		//sending data to the shaders
-		gl.uniform1f(this.locationAlpha, this.alpha);
-		gl.uniform3fv(this.locationColor, this.col);
-		gl.uniform1f(this.locationN, this.N);
-	}
+	// 	//sending data to the shaders
+	// 	gl.uniform1f(this.locationAlpha, this.alpha);
+	// 	gl.uniform3fv(this.locationColor, this.col);
+	// 	gl.uniform1f(this.locationN, this.N);
+	// }
 	
 	// --------------------------------------------
 	draw() {
-		if(this.shader && this.loaded==4 && this.mesh != null) {
+		if(this.shader1 && this.loaded==4 && this.mesh != null) {
 			this.setShadersParams();
-			this.setMatrixUniforms();
+			//this.setMatrixUniforms(); => spread in setShadersParams
+			gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.mesh.indexBuffer);
+			gl.drawElements(gl.TRIANGLE, this.mesh.indexBuffer.numItems, gl.UNSIGNED_SHORT, 0);
+			
+		} else if (this.shader2 && this.loaded==4 && this.mesh != null) {
+			this.setShadersParams();
+			//this.setMatrixUniforms(); => spread in setShadersParams
 			gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.mesh.indexBufferFil);
 			gl.drawElements(gl.LINES, this.mesh.indexBufferFil.numItems, gl.UNSIGNED_SHORT, 0);
 		}
@@ -246,7 +314,6 @@ function initGL(canvas)
 	}
 }
 
-
 // =====================================================
 loadObjFile = function(OBJ3D)
 {
@@ -279,6 +346,33 @@ loadObjFile = function(OBJ3D)
 	xhttp.send();
 }
 
+// =====================================================
+function loadShadersNew(shader) {
+	loadShaderTextNew(shader,'.vs');
+	loadShaderTextNew(shader,'.fs');
+}
+
+// =====================================================
+function loadShaderTextNEW(shader,ext) {   // lecture asynchrone...
+	var xhttp = new XMLHttpRequest();
+
+	xhttp.onreadystatechange = function() {
+		if (xhttp.readyState == 4 && xhttp.status == 200) {
+			if(ext=='.vs') { shader.vsTxt = xhttp.responseText; shader.loaded ++; }
+			if(ext=='.fs') { shader.fsTxt = xhttp.responseText; shader.loaded ++; }
+			if(shader.loaded==2) {
+				shader.loaded ++;
+				compileShaders(shader);
+				shader.loaded ++;
+				console.log("Shader '"+shader.shaderName + "' COMPILED !");
+			}
+		}
+	}
+
+	shader.loaded = 0;
+	xhttp.open("GET", shader.shaderName+ext, true);
+	xhttp.send();
+}
 
 
 
@@ -361,8 +455,8 @@ function webGLStart() {
 	PLANE = new plane();
 
 	scene = new Array();
-	new objmesh('Bunny1','bunny.obj','lambert',0.7,[0.9,0.4,0.3],[-0.7,0.0,0.0]);
-	new objmesh('Bunny2','bunny.obj','lambert',0.6,[0.2,0.8,0.3],[0.7,0.0,0.0]);
+	new objmesh('Bunny1','bunny.obj',[0.9,0.4,0.3],[-0.7,0.0,0.0]);
+	new objmesh('Bunny2','bunny.obj',[0.2,0.8,0.3],[0.7,0.0,0.0]);
 
 	// ==== Menu déroulant (sélection obj)
 	var selectMenu = document.getElementById('selectobj');

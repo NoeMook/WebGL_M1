@@ -66,6 +66,12 @@
 				</position_scale_pan>
 				<submit_pan>
 					
+					<script>
+						function getSelectorValue(){
+							var selector = document.getElementById("selectobj").value;
+							return selector;
+						}
+					</script>
 
 					<script>
 						function getAlpha(){
@@ -78,13 +84,6 @@
 						function getShine(){
 							var input = document.getElementById("Shine").value;
 							scene[getSelectorValue()].setN(input);
-						}
-					</script>
-
-					<script>
-						function getSelectorValue(){
-							var selector = document.getElementById("selectobj").value;
-							return selector;
 						}
 					</script>
 
