@@ -38,7 +38,7 @@ class objmesh {
 		scene.push(this);
 		
 		loadObjFile(this);
-		loadShaders(this);
+		//loadShaders(this);
 
 		this.shader1={frame:'lambert'};
 		loadShadersNEW(this.shader1);
@@ -159,13 +159,17 @@ class objmesh {
 	
 	// --------------------------------------------
 	draw() {
+		console.log("shader1: " , this.shader1.loaded);
+		console.log("shader2: " , this.shader2.loaded);
+
 		if(this.shader1 && this.loaded==4 && this.mesh != null) {
 			this.setShadersParams();
 			//this.setMatrixUniforms(); => spread in setShadersParams
 			gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.mesh.indexBuffer);
 			gl.drawElements(gl.TRIANGLE, this.mesh.indexBuffer.numItems, gl.UNSIGNED_SHORT, 0);
+		}
 			
-		} else if (this.shader2 && this.loaded==4 && this.mesh != null) {
+		if (this.shader2 && this.loaded==4 && this.mesh != null) {
 			this.setShadersParams();
 			//this.setMatrixUniforms(); => spread in setShadersParams
 			gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.mesh.indexBufferFil);
@@ -347,9 +351,9 @@ loadObjFile = function(OBJ3D)
 }
 
 // =====================================================
-function loadShadersNew(shader) {
-	loadShaderTextNew(shader,'.vs');
-	loadShaderTextNew(shader,'.fs');
+function loadShadersNEW(shader) {
+	loadShaderTextNEW(shader,'.vs');
+	loadShaderTextNEW(shader,'.fs');
 }
 
 // =====================================================
