@@ -68,6 +68,13 @@
 					
 
 					<script>
+						function getSelectorValue(){
+							var selector = document.getElementById("selectobj").value;
+							return selector;
+						}
+					</script>
+
+					<script>
 						function getAlpha(){
 							var input = document.getElementById("Alpha").value;
 							scene[getSelectorValue()].setAlpha(input/100);
@@ -78,13 +85,6 @@
 						function getShine(){
 							var input = document.getElementById("Shine").value;
 							scene[getSelectorValue()].setN(input);
-						}
-					</script>
-
-					<script>
-						function getSelectorValue(){
-							var selector = document.getElementById("selectobj").value;
-							return selector;
 						}
 					</script>
 
