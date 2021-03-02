@@ -56,7 +56,7 @@ class objmesh {
 		mat4.identity(deplacement);
 		mat4.translate(deplacement, this.vecD);
 
-		gl.useProgram(this.shader1.shader);
+		gl.useProgram(this);
 
 		// this.shader.vAttrib = gl.getAttribLocation(this.shader, "aVertexPosition");
 		// gl.enableVertexAttribArray(this.shader.vAttrib);
@@ -96,7 +96,7 @@ class objmesh {
 		gl.uniform3fv(this.shader1.locationColor, this.col);
 		gl.uniform1f(this.shader1.locationN, this.N);
 		
-		gl.useProgram(this.shader2.shader);
+		//gl.useProgram(this.shader2.shader);
 		//vAttrib and nAttrib for Shader2
 		this.shader2.vAttrib = gl.getAttriblocation(this.shader2.shader, "aVertexPosition");
 		gl.enableVertexAttribArray(this.shader2.vAttrib);
@@ -173,7 +173,7 @@ class objmesh {
 		// 	gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.mesh.indexBuffer);
 		// 	gl.drawElements(gl.TRIANGLE, this.mesh.indexBuffer.numItems, gl.UNSIGNED_SHORT, 0);
 		// }
-			
+		console.log(this.shader2.shader);
 		if (this.shader2.shader && this.mesh != null) {
 			this.setShadersParams();
 			//this.setMatrixUniforms(); => spread in setShadersParams
