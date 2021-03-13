@@ -81,3 +81,22 @@ function handleMouseMove(event) {
 	lastMouseX = newX
 	lastMouseY = newY;
 }
+//====================
+function handleKeyPressed(event) {
+	switch (event.key) {
+		case 'ArrowLeft':
+			distCENTER[0] += 0.1;
+			break;
+		case 'ArrowRight':
+			distCENTER[0] -= 0.1;
+			break;
+		case 'ArrowUp':
+			distCENTER[1] += 0.1;
+			break;
+		case 'ArrowDown':
+			distCENTER[1] -= 0.1;
+			break;
+		default:
+			break;
+	}
+}

@@ -458,6 +458,7 @@ function webGLStart() {
 	document.onmouseup = handleMouseUp;
 	document.onmousemove = handleMouseMove;
 	canvas.onwheel = handleMouseWheel;
+	document.onkeydown = handleKeyPressed;
 
 	initGL(canvas);
 	mat4.perspective(45, gl.viewportWidth / gl.viewportHeight, 0.1, 100.0, pMatrix);
