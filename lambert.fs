@@ -34,11 +34,7 @@ void main(void)
 	float cosAlpha = ddot(normalize(R),Vo); //cosinus de l'angle alpha (entre le vecteur réfléchi et le vecteur de vision)
 	float cosAlphaN = pow(cosAlpha,n); // cosAlpha a la puissance n
 	vec3 Fr;
-	if (n == 0.0) {
-		Fr = (1.0-Ks) * Kd / pi; // On annule le traitement de phong
-	} else {
-		Fr = (1.0-Ks) * Kd / pi + (n+2.0)/(2.0*pi) * Ks * cosAlphaN; //calcul de phong
-	}
+	Fr = (1.0-Ks) * Kd / pi + (n+2.0)/(2.0*pi) * Ks * cosAlphaN; //calcul de phong
 	vec3 Lo = Li * Fr * cosTheta;
 
 	gl_FragColor = vec4(Lo,alpha);

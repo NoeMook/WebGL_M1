@@ -38,30 +38,39 @@
 			<rightbox>
 				<alpha_color_pan>
 					<h2>aspect_parameters</h2>
-					<input type="range" id="Alpha" name="Alpha" min="0%" max="100%" value="0" oninput="value_of_alpha_range.value=Alpha.value;getAlpha();" >
+					<input type="range" id="Alpha" name="Alpha" min="0%"  max="100%" value="50" oninput="value_of_alpha_range.value=Alpha.value;changeAlpha();" >
 					<br>	
 					Alpha: 
 					<output id="value_of_alpha_range" name="value_of_alpha_range" for="Alpha">0</output> %
 					<br>
 					<br>
-					<input type="range" id="Shine" name="Shine" min="0" max="1000" value="0" oninput="value_of_shine_range.value=Shine.value;getShine();" >
+					<input type="range" id="Shine" name="Shine" min="1" max="100" value="0" oninput="value_of_shine_range.value=Shine.value;changeShine();" >
 					<br>	
 					Shininess: 
 					<output id="value_of_shine_range" name="value_of_shine_range" for="Shine">0</output>
 					<br>
 				</alpha_color_pan>
+				<shader_pan>
+					<h2>shader_selector</h2>
+					<input type="checkbox" id="shader1" name="shader1" onclick="changeShader(1)" checked>
+					<label>Lambert</label>
+					<input type="checkbox" id="shader2" name="shader2" onclick="changeShader(2)" checked>
+					<label>Wireframe</label>
+					<input type="checkbox" id="Phong" name="Phong" checked>
+					<label>Phong</label>
+				</Shader_Pan>
 				<position_scale_pan>
 					<h2>Colors_parameters</h2>
 					<color_pan>
-						<button type="button" id="red" onclick="getColor([0.8,0.2,0.2])"> </button>
-						<button type="button" id="blue" onclick="getColor([0.2,0.4,0.8])"> </button>
-						<button type="button" id="green"onclick="getColor([0.2,0.8,0.3])"> </button>
-						<button type="button" id="white" onclick="getColor([0.8,0.8,0.8])"> </button>
-						<button type="button" id="black" onclick="getColor([0.2,0.2,0.2])"> </button>
-						<button type="button" id="yellow" onclick="getColor([0.8,0.8,0.4])"> </button>
-						<button type="button" id="orange" onclick="getColor([0.8,0.6,0.2])"> </button>
-						<button type="button" id="purple" onclick="getColor([0.6,0.2,0.8])"> </button>
-						<button type="button" id="cyan" onclick="getColor([0.2,0.6,0.8])"> </button>
+						<button type="button" id="red" onclick="changeColor([0.8,0.2,0.2])"> </button>
+						<button type="button" id="blue" onclick="changeColor([0.2,0.4,0.8])"> </button>
+						<button type="button" id="green"onclick="changeColor([0.2,0.8,0.3])"> </button>
+						<button type="button" id="white" onclick="changeColor([0.8,0.8,0.8])"> </button>
+						<button type="button" id="black" onclick="changeColor([0.2,0.2,0.2])"> </button>
+						<button type="button" id="yellow" onclick="changeColor([0.8,0.8,0.4])"> </button>
+						<button type="button" id="orange" onclick="changeColor([0.8,0.6,0.2])"> </button>
+						<button type="button" id="purple" onclick="changeColor([0.6,0.2,0.8])"> </button>
+						<button type="button" id="cyan" onclick="changeColor([0.2,0.6,0.8])"> </button>
 					</color_pan>
 				</position_scale_pan>
 				<submit_pan>
@@ -74,22 +83,33 @@
 					</script>
 
 					<script>
-						function getAlpha(){
+						function changeAlpha(){
 							var input = document.getElementById("Alpha").value;
 							scene[getSelectorValue()].setAlpha(input/100);
 						}
 					</script>
 
 					<script>
-						function getShine(){
+						function changeShine(){
 							var input = document.getElementById("Shine").value;
 							scene[getSelectorValue()].setN(input);
 						}
 					</script>
 
 					<script>
-						function getColor(getColorValue){
+						function changeColor(getColorValue){
 							scene[getSelectorValue()].setColor(getColorValue);
+						}
+					</script>
+
+					<script>
+						function changeShader(numShader){
+							if (numShader == 1){
+								scene[getSelectorValue()].setShader(numShader, document.getElementById("shader1").checked);
+							} else {
+								scene[getSelectorValue()].setShader(numShader, document.getElementById("shader2").checked);
+							}
+							
 						}
 					</script>
 

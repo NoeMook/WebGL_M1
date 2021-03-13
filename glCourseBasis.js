@@ -201,14 +201,33 @@ class objmesh {
 	setAlpha(alpha){
 		this.alpha = alpha;
 	}
+	
+	getAlpha(){
+		return this.alpha;
+	}
+
 	setColor(col){
 		this.col = vec3.create(col);
 	}
+	
 	setCoord(xyz){
 		this.vecD = vec3.create(xyz);
 	}
+
 	setN(n){
 		this.N = n;
+	}
+
+	getN(){
+		return this.N;
+	}
+
+	setShader(numShader, activity){
+		if (numShader==1) {
+			this.shader1.active=activity;
+		} else if (numShader==2){
+			this.shader2.active=activity;
+		}
 	}
 
 }
@@ -317,7 +336,7 @@ function initGL(canvas)
 		gl.viewportHeight = canvas.height;
 		gl.viewport(0, 0, canvas.width, canvas.height);
 
-		gl.clearColor(0.07, 0.07, 0.07, 1.0);
+		gl.clearColor(0.06, 0.06, 0.06, 1.0);
 		gl.enable(gl.DEPTH_TEST);
 		gl.enable(gl.CULL_FACE);
 		gl.cullFace(gl.BACK); 
