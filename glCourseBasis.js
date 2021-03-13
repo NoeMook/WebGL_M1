@@ -40,10 +40,10 @@ class objmesh {
 		loadObjFile(this);
 		//loadShaders(this);
 
-		this.shader1={fname:'lambert'};
+		this.shader1={shaderName:'lambert'};
 		loadShadersNEW(this.shader1);
 
-		this.shader2={fname:'wireframe'};
+		this.shader2={shaderName:'wireframe'};
 		loadShadersNEW(this.shader2);
 	}
 
@@ -56,7 +56,7 @@ class objmesh {
 		mat4.identity(deplacement);
 		mat4.translate(deplacement, this.vecD);
 
-		gl.useProgram(this);
+		gl.useProgram(this.shader1.shader);
 
 		// this.shader.vAttrib = gl.getAttribLocation(this.shader, "aVertexPosition");
 		// gl.enableVertexAttribArray(this.shader.vAttrib);
@@ -69,15 +69,15 @@ class objmesh {
 		// gl.vertexAttribPointer(this.shader.nAttrib, this.mesh.vertexBuffer.itemSize, gl.FLOAT, false, 0, 0);
 
 		//vAttrib and nAttrib for Shader1
-		this.shader1.vAttrib = gl.getAttriblocation(this.shader1.shader, "aVertexPosition");
+		this.shader1.vAttrib = gl.getAttribLocation(this.shader1.shader, "aVertexPosition");
 		gl.enableVertexAttribArray(this.shader1.vAttrib);
-		gl.bindBuffer(gl.ARRAY_BUFFER, this.mech.vertexBuffer);
-		gl.vertexAttribPointer(this.shader1.vAttrib, this.mesh.vertexBuffer.itemSize, gl.float, false, 0, 0);
+		gl.bindBuffer(gl.ARRAY_BUFFER, this.mesh.vertexBuffer);
+		gl.vertexAttribPointer(this.shader1.vAttrib, this.mesh.vertexBuffer.itemSize, gl.FLOAT, false, 0, 0);
 
-		this.shader1.nAttrib = gl.getAttriblocation(this.shader1.shader, "aVertexNormal");
+		this.shader1.nAttrib = gl.getAttribLocation(this.shader1.shader, "aVertexNormal");
 		gl.enableVertexAttribArray(this.shader1.nAttrib);
-		gl.bindBuffer(gl.ARRAY_BUFFER, this.mech.normalBuffer);
-		gl.vertexAttribPointer(this.shader1.nAttrib, this.mesh.vertexBuffer.itemSize, gl.float, false, 0, 0);
+		gl.bindBuffer(gl.ARRAY_BUFFER, this.mesh.normalBuffer);
+		gl.vertexAttribPointer(this.shader1.nAttrib, this.mesh.vertexBuffer.itemSize, gl.FLOAT, false, 0, 0);
 
 		this.shader1.rMatrixUniform = gl.getUniformLocation(this.shader1.shader, "uRMatrix");
 		this.shader1.mvMatrixUniform = gl.getUniformLocation(this.shader1.shader, "uMVMatrix");
@@ -95,13 +95,21 @@ class objmesh {
 		gl.uniform1f(this.shader1.locationAlpha, this.alpha);
 		gl.uniform3fv(this.shader1.locationColor, this.col);
 		gl.uniform1f(this.shader1.locationN, this.N);
-		
-		//gl.useProgram(this.shader2.shader);
+	}
+	setShadersParams2() {
+
+		mat4.identity(mvMatrix);
+		mat4.translate(mvMatrix, distCENTER);
+		mat4.multiply(mvMatrix, rotMatrix);
+		mat4.identity(deplacement);
+		mat4.translate(deplacement, this.vecD);
+
+		gl.useProgram(this.shader2.shader);
 		//vAttrib and nAttrib for Shader2
-		this.shader2.vAttrib = gl.getAttriblocation(this.shader2.shader, "aVertexPosition");
+		this.shader2.vAttrib = gl.getAttribLocation(this.shader2.shader, "aVertexPosition");
 		gl.enableVertexAttribArray(this.shader2.vAttrib);
-		gl.bindBuffer(gl.ARRAY_BUFFER, this.mech.vertexBuffer);
-		gl.vertexAttribPointer(this.shader2.vAttrib, this.mesh.vertexBuffer.itemSize, gl.float, false, 0, 0);
+		gl.bindBuffer(gl.ARRAY_BUFFER, this.mesh.vertexBuffer);
+		gl.vertexAttribPointer(this.shader2.vAttrib, this.mesh.vertexBuffer.itemSize, gl.FLOAT, false, 0, 0);
 
 		// this.shader2.nAttrib = gl.getAttriblocation(this.shader2, "aVertexNormal");
 		// gl.enableVertexAttribArray(this.shader2.nAttrib);
@@ -167,15 +175,14 @@ class objmesh {
 	// --------------------------------------------
 	draw() {
 
-		// if(this.shader1 && this.mesh != null) {
-		// 	this.setShadersParams();
-		// 	//this.setMatrixUniforms(); => spread in setShadersParams
-		// 	gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.mesh.indexBuffer);
-		// 	gl.drawElements(gl.TRIANGLE, this.mesh.indexBuffer.numItems, gl.UNSIGNED_SHORT, 0);
-		// }
-		console.log(this.shader2.shader);
+		 if(this.shader1.shader && this.mesh != null) {
+		 	this.setShadersParams();
+		 	//this.setMatrixUniforms(); => spread in setShadersParams
+		 	gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.mesh.indexBuffer);
+		 	gl.drawElements(gl.TRIANGLES, this.mesh.indexBuffer.numItems, gl.UNSIGNED_SHORT, 0);
+		}
 		if (this.shader2.shader && this.mesh != null) {
-			this.setShadersParams();
+			this.setShadersParams2();
 			//this.setMatrixUniforms(); => spread in setShadersParams
 			gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.mesh.indexBufferFil);
 			gl.drawElements(gl.LINES, this.mesh.indexBufferFil.numItems, gl.UNSIGNED_SHORT, 0);

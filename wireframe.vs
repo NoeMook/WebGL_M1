@@ -6,5 +6,5 @@ uniform mat4 uPMatrix;
 uniform mat4 uDeplacement;
 
 void main(void) {
-	gl_Position = uRMatrix * uPMatrix * uMVMatrix * uDeplacement * vec4(aVertexPosition,1.0);
+	gl_Position = uPMatrix * uMVMatrix * uDeplacement * vec4(aVertexPosition,1.0);
 }
