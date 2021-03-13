@@ -91,10 +91,10 @@ function handleKeyPressed(event) {
 			distCENTER[0] -= 0.1;
 			break;
 		case 'ArrowUp':
-			distCENTER[1] += 0.1;
+			distCENTER[1] -= 0.1;
 			break;
 		case 'ArrowDown':
-			distCENTER[1] -= 0.1;
+			distCENTER[1] += 0.1;
 			break;
 		default:
 			break;

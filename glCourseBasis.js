@@ -40,10 +40,10 @@ class objmesh {
 		loadObjFile(this);
 		//loadShaders(this);
 
-		this.shader1={shaderName:'lambert'};
+		this.shader1={shaderName:'lambert',active:true};
 		loadShadersNEW(this.shader1);
 
-		this.shader2={shaderName:'wireframe'};
+		this.shader2={shaderName:'wireframe',active:true};
 		loadShadersNEW(this.shader2);
 	}
 
@@ -175,13 +175,13 @@ class objmesh {
 	// --------------------------------------------
 	draw() {
 
-		 if(this.shader1.shader && this.mesh != null) {
+		 if(this.shader1.shader && this.mesh != null && this.shader1.active) {
 		 	this.setShadersParams();
 		 	//this.setMatrixUniforms(); => spread in setShadersParams
 		 	gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.mesh.indexBuffer);
 		 	gl.drawElements(gl.TRIANGLES, this.mesh.indexBuffer.numItems, gl.UNSIGNED_SHORT, 0);
 		}
-		if (this.shader2.shader && this.mesh != null) {
+		if (this.shader2.shader && this.mesh != null && this.shader2.active) {
 			this.setShadersParams2();
 			//this.setMatrixUniforms(); => spread in setShadersParams
 			gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.mesh.indexBufferFil);
