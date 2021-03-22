@@ -129,36 +129,43 @@ class objmesh {
 		}
 	}
 	//---------------------------------------------
+	// set the alpha of the object (0 < a < 1)
 	setAlpha(alpha){
 		this.alpha = alpha;
 	}
-	
+	// return the alpha 
 	getAlpha(){
 		return this.alpha;
 	}
-
+	// set the color of the object
+	// in : [r,v,b] r,v,b values between 0 et 1
 	setColor(col){
 		this.col = vec3.create(col);
 	}
-	
+	//set the coords of the object
 	setCoord(xyz){
 		this.vecD = vec3.create(xyz);
 	}
-
+	// set the shininess of the object
 	setN(n){
 		this.N = n;
 	}
-
+	//return the shininess of the object
 	getN(){
 		return this.N;
 	}
-
+	//set the shader status
 	setShader(numShader, activity){
 		if (numShader==1) {
 			this.shader1.active=activity;
 		} else if (numShader==2){
 			this.shader2.active=activity;
 		}
+	}
+	// return the states of the object's shaders
+	getActiveShader(){
+		return [this.shader1.active,
+				this.shader2.active];
 	}
 
 }
