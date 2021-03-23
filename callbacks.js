@@ -84,16 +84,16 @@ function handleMouseMove(event) {
 //====================
 function handleKeyPressed(event) {
 	switch (event.key) {
-		case 'ArrowLeft':
+		case 'q':
 			distCENTER[0] += 0.1;
 			break;
-		case 'ArrowRight':
+		case 'd':
 			distCENTER[0] -= 0.1;
 			break;
-		case 'ArrowUp':
+		case 'z':
 			distCENTER[1] -= 0.1;
 			break;
-		case 'ArrowDown':
+		case 's':
 			distCENTER[1] += 0.1;
 			break;
 		default:

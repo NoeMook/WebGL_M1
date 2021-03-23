@@ -99,6 +99,7 @@ button[id=orange]{
     border: none;
     margin: 3px
 }
+
 button[id=purple]{
     width: 30%;
     height: 50px;
@@ -106,6 +107,7 @@ button[id=purple]{
     border: none;
     margin: 3px
 }
+
 button[id=cyan]{
     width: 30%;
     height: 50px;
@@ -127,15 +129,15 @@ Generalpan{
 }
 
 topbox{
+    padding-bottom: 2%;
     /* border: 1px solid red; */
     text-align: center;
     align-items: center;
-    height: 30px;
+    height: auto;
     font-size: 1.2em;
 }
 
 mainbox{
-    /* border: 1px solid yellow; */
     display: flex;
     justify-content: center;
     font-size: 1.2em;
@@ -143,10 +145,18 @@ mainbox{
 
 rightbox{
     padding: 30px;
-    /* padding-left: 50px; */
-    /* border: 1px solid red; */
     display: grid;
     grid-template-columns: auto;
     grid-template-rows: 50%, 50%; 
     background-color: rgb(54, 54, 54);
+    height: 535;
+}
+
+leftbox{
+    padding: 30px;
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: 50%, 50%; 
+    background-color: rgb(54, 54, 54);
+    height: 535;
 }

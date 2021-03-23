@@ -146,6 +146,9 @@ class objmesh {
 	setCoord(xyz){
 		this.vecD = vec3.create(xyz);
 	}
+	getCoord(){
+		return this.vecD;
+	}
 	// set the shininess of the object
 	setN(n){
 		this.N = n;
@@ -154,6 +157,8 @@ class objmesh {
 	getN(){
 		return this.N;
 	}
+
+	
 	//set the shader status
 	setShader(numShader, activity){
 		if (numShader==1) {
@@ -440,6 +445,7 @@ function webGLStart() {
 		opt.value = i;
 		selectMenu.appendChild(opt);
 	});
+	updatefield();
 	tick();
 }
 
