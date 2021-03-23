@@ -437,18 +437,28 @@ function webGLStart() {
 	new objmesh('Bunny1','bunny.obj',[0.9,0.4,0.3],[-0.7,0.0,0.0]);
 	new objmesh('Bunny2','bunny.obj',[0.2,0.8,0.3],[0.7,0.0,0.0]);
 
+	updateObjectSelect();
+	updatefield();
+	tick();
+}
+function updateObjectSelect(){
 	// ==== Menu déroulant (sélection obj)
 	var selectMenu = document.getElementById('selectobj');
+	removeOptions(selectMenu);
 	scene.forEach(function(el, i) {
 		var opt = document.createElement("option");
 		opt.innerText = el.name;
 		opt.value = i;
 		selectMenu.appendChild(opt);
 	});
-	updatefield();
-	tick();
 }
 
+function removeOptions(selectElement) {
+	var i, L = selectElement.options.length - 1;
+	for(i = L; i >= 0; i--) {
+	   selectElement.remove(i);
+	}
+ }
 // =====================================================
 function drawScene() {
 	gl.clear(gl.COLOR_BUFFER_BIT);

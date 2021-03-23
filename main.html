@@ -156,14 +156,40 @@
 							document.getElementById("shader2").checked = scene[getSelectorValue()].getActiveShader()[1];
 
 						}
-
+						function addObject(){
+							var name = document.getElementById("name").value;
+							var model = document.getElementById("model").value;
+							new objmesh(name,model,[0.2,0.8,0.3],[0.0,0.0,0.0]);
+						}
+				
+						function invertDisplayForm(){
+							var f = document.getElementById('AddForm');
+							if(f.style.display === "none"){
+								f.style.display = "block";
+							}else{
+								f.style.display = "none";
+							}
+						}
 					</script>
-					
 
 				</submit_pan>
 			</rightbox>
 		</mainbox>
+		<button onclick="invertDisplayForm();">Add an Object</button>     
+		<div id ="AddForm" style="display:none;">
+			<form>
+				<input type = "text" id = "name" value = "Name of the object" />
 
+				<select id = "model">
+					<option value="bunny.obj">Bunny</option>
+					<option value="porshe.obj">Porshe</option>
+					<option value="mustang.obj">Mustang</option>
+					<option value="spaceship.obj">Spaceship</option>
+				</select>
+
+				<input type="button" value="Add object" onclick="addObject();invertDisplayForm();updateObjectSelect();"/>
+			</form>
+		</div>
 	</Generalpan>
 	
 
