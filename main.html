@@ -25,33 +25,50 @@
 	
 	<Generalpan>
 		<topbox>
-			object_selector
-			<select id="selectobj">
+			<h2>object_selector</h2>
+			<select id="selectobj" oninput="updatefield()">
 			</select>
 		</topbox>
 		<mainbox>
-	
 			<leftbox>
-				<canvas id="WebGL-test" style="border:none;" width="800" height="600"></canvas>
+				<position_pan>
+				<h2>position_parameters</h2>
+				<input type="range" id="x" name="x" min="-100"  max="100" oninput="value_of_x_range.value=x.value/100; changePosition();">
+				<br>	
+				X:
+				<output id="value_of_x_range" name="value_of_x_range" for="x"></output>
+				<br>
+				<input type="range" id="y" name="y" min="-100"  max="100" oninput="value_of_y_range.value=y.value/100; changePosition();">
+				<br>	
+				Y:
+				<output id="value_of_y_range" name="value_of_y_range" for="y"></output>
+				<br>
+				<input type="range" id="z" name="z" min="-100"  max="100" oninput="value_of_z_range.value=z.value/100; changePosition();">
+				<br>	
+				Z:
+				<output id="value_of_z_range" name="value_of_z_range" for="z"></output>
+				</position_pan>
 			</leftbox>
-		
+			<middle>
+				<canvas id="WebGL-test" style="border:none;" width="800" height="600"></canvas>
+			</middle>
 			<rightbox>
+				<h2>aspect_parameters</h2>
 				<alpha_color_pan>
-					<h2>aspect_parameters</h2>
 					<input type="range" id="Alpha" name="Alpha" min="0%"  max="100%" value="50" oninput="value_of_alpha_range.value=Alpha.value;changeAlpha();" >
 					<br>	
 					Alpha: 
-					<output id="value_of_alpha_range" name="value_of_alpha_range" for="Alpha">0</output> %
+					<output id="value_of_alpha_range" name="value_of_alpha_range" for="Alpha"></output> %
 					<br>
 					<br>
 					<input type="range" id="Shine" name="Shine" min="1" max="100" value="0" oninput="value_of_shine_range.value=Shine.value;changeShine();" >
 					<br>	
 					Shininess: 
-					<output id="value_of_shine_range" name="value_of_shine_range" for="Shine">0</output>
+					<output id="value_of_shine_range" name="value_of_shine_range" for="Shine"></output>
 					<br>
 				</alpha_color_pan>
+				<h2>shader_selector</h2>
 				<shader_pan>
-					<h2>shader_selector</h2>
 					<input type="checkbox" id="shader1" name="shader1" onclick="changeShader(1)" checked>
 					<label>Lambert</label>
 					<input type="checkbox" id="shader2" name="shader2" onclick="changeShader(2)" checked>
@@ -59,22 +76,20 @@
 					<input type="checkbox" id="Phong" name="Phong" checked>
 					<label>Phong</label>
 				</Shader_Pan>
-				<position_scale_pan>
-					<h2>Colors_parameters</h2>
-					<color_pan>
-						<button type="button" id="red" onclick="changeColor([0.8,0.2,0.2])"> </button>
-						<button type="button" id="blue" onclick="changeColor([0.2,0.4,0.8])"> </button>
-						<button type="button" id="green"onclick="changeColor([0.2,0.8,0.3])"> </button>
-						<button type="button" id="white" onclick="changeColor([0.8,0.8,0.8])"> </button>
-						<button type="button" id="black" onclick="changeColor([0.2,0.2,0.2])"> </button>
-						<button type="button" id="yellow" onclick="changeColor([0.8,0.8,0.4])"> </button>
-						<button type="button" id="orange" onclick="changeColor([0.8,0.6,0.2])"> </button>
-						<button type="button" id="purple" onclick="changeColor([0.6,0.2,0.8])"> </button>
-						<button type="button" id="cyan" onclick="changeColor([0.2,0.6,0.8])"> </button>
-					</color_pan>
-				</position_scale_pan>
+				<h2>colors_parameters</h2>
+				<color_pan>
+					<button type="button" id="red" onclick="changeColor([0.8,0.2,0.2])"> </button>
+					<button type="button" id="blue" onclick="changeColor([0.2,0.4,0.8])"> </button>
+					<button type="button" id="green"onclick="changeColor([0.2,0.8,0.3])"> </button>
+					<button type="button" id="white" onclick="changeColor([0.8,0.8,0.8])"> </button>
+					<button type="button" id="black" onclick="changeColor([0.2,0.2,0.2])"> </button>
+					<button type="button" id="yellow" onclick="changeColor([0.8,0.8,0.4])"> </button>
+					<button type="button" id="orange" onclick="changeColor([0.8,0.6,0.2])"> </button>
+					<button type="button" id="purple" onclick="changeColor([0.6,0.2,0.8])"> </button>
+					<button type="button" id="cyan" onclick="changeColor([0.2,0.6,0.8])"> </button>
+				</color_pan>
+				
 				<submit_pan>
-					
 					<script>
 						function getSelectorValue(){
 							var selector = document.getElementById("selectobj").value;
@@ -86,6 +101,13 @@
 						function changeAlpha(){
 							var input = document.getElementById("Alpha").value;
 							scene[getSelectorValue()].setAlpha(input/100);
+						}
+					</script>
+
+					<script>
+						function changePosition(){
+							var input = [document.getElementById("x").value/100, document.getElementById("y").value/100, document.getElementById("z").value/100];
+							scene[getSelectorValue()].setCoord(input);
 						}
 					</script>
 
@@ -108,15 +130,40 @@
 								scene[getSelectorValue()].setShader(numShader, document.getElementById("shader1").checked);
 							} else {
 								scene[getSelectorValue()].setShader(numShader, document.getElementById("shader2").checked);
-							}
+							}	
+						}
+
+						function phongActivation(){
 							
 						}
 					</script>
 
+					<script>
+						function updatefield(){
+							document.getElementById("Alpha").value = scene[getSelectorValue()].getAlpha()*100;
+							document.getElementById("value_of_alpha_range").value = scene[getSelectorValue()].getAlpha()*100;
+							document.getElementById("Shine").value = scene[getSelectorValue()].getN();
+							document.getElementById("value_of_shine_range").value = scene[getSelectorValue()].getN();
+
+							document.getElementById("z").value = scene[getSelectorValue()].getCoord()[2]*100;
+							document.getElementById("value_of_z_range").value = scene[getSelectorValue()].getCoord()[2];
+							document.getElementById("y").value = scene[getSelectorValue()].getCoord()[1]*100;
+							document.getElementById("value_of_y_range").value = scene[getSelectorValue()].getCoord()[1];
+							document.getElementById("x").value = scene[getSelectorValue()].getCoord()[0]*100;
+							document.getElementById("value_of_x_range").value = scene[getSelectorValue()].getCoord()[0];
+
+							document.getElementById("shader1").checked = scene[getSelectorValue()].getActiveShader()[0];
+							document.getElementById("shader2").checked = scene[getSelectorValue()].getActiveShader()[1];
+
+						}
+
+					</script>
+					
 
 				</submit_pan>
 			</rightbox>
 		</mainbox>
+
 	</Generalpan>
 	
 
