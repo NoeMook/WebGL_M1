@@ -4,7 +4,7 @@ precision mediump float;
 varying vec4 pos3D; //point de l'objet traite
 varying vec3 N;
 uniform float alpha;
-varying vec3 color; //couleur de l'objet
+uniform vec3 colorimp; //couleur de l'objet
 uniform float n; //taille du lobe
 
 vec3 Li = vec3(3.0); // puissance de la source lumineuse
@@ -28,7 +28,7 @@ void main(void)
 
 	vec3 nN = normalize(N); // normale normalisée ( norme = 1 )
 	float cosTheta = ddot(nN,Vi); // vu que les deux vecteurs sont normalisés alors le produit scalaire = cos(theta)
-	vec3 Kd = color; //couleur de reflection de l'objet (aspect diffus)
+	vec3 Kd = colorimp; //couleur de reflection de l'objet (aspect diffus)
 
 	vec3 R = reflect(-Vi,nN); // vecteur refléchi de la lumière (-Vi car on considère les rayons de lumières vers l'objet)
 	float cosAlpha = ddot(normalize(R),Vo); //cosinus de l'angle alpha (entre le vecteur réfléchi et le vecteur de vision)
