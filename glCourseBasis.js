@@ -37,7 +37,7 @@ class objmesh {
 		
 		loadObjFile(this);
 
-		this.shader1={shaderName:'lambert',active:true};
+		this.shader1={shaderName:'faces',active:true};
 		loadShadersNEW(this.shader1);
 
 		this.shader2={shaderName:'wireframe',active:true};
@@ -117,13 +117,11 @@ class objmesh {
 
 		 if(this.shader1.shader && this.mesh != null && this.shader1.active) {
 		 	this.setShadersParams();
-		 	//this.setMatrixUniforms(); => spread in setShadersParams
 		 	gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.mesh.indexBuffer);
 		 	gl.drawElements(gl.TRIANGLES, this.mesh.indexBuffer.numItems, gl.UNSIGNED_SHORT, 0);
 		}
 		if (this.shader2.shader && this.mesh != null && this.shader2.active) {
 			this.setShadersParams2();
-			//this.setMatrixUniforms(); => spread in setShadersParams
 			gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.mesh.indexBufferFil);
 			gl.drawElements(gl.LINES, this.mesh.indexBufferFil.numItems, gl.UNSIGNED_SHORT, 0);
 		}
@@ -302,15 +300,19 @@ loadObjFile = function(OBJ3D)
 			var tmpMesh = new OBJ.Mesh(xhttp.responseText);
 			OBJ.initMeshBuffers(gl,tmpMesh);
 			OBJ3D.mesh=tmpMesh;
-			
-			OBJ3D.mesh.indicesFil = [];
 
+			//Création d'un tableau qui va recevoir les index des lignes.
+			OBJ3D.mesh.indicesFil = [];
+			//Boucle de parcours des indices pour les triangles (de 3 en 3)
 			for (let i = 0; i < tmpMesh.indices.length; i+=3) {
+				// On ajoute le couple p1-p2
 				OBJ3D.mesh.indicesFil.push(tmpMesh.indices[i],tmpMesh.indices[i+1]);
+				// On ajoute le couple p2-p3
 				OBJ3D.mesh.indicesFil.push(tmpMesh.indices[i+1],tmpMesh.indices[i+2]);
+				// On ajoute le couple p3-p1
 				OBJ3D.mesh.indicesFil.push(tmpMesh.indices[i+2],tmpMesh.indices[i]);
 			}
-			
+			//Création du Buffer et association avec le tableau crée précedemment
 			OBJ3D.mesh.indexBufferFil = gl.createBuffer();
     		gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, OBJ3D.mesh.indexBufferFil);
 			gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(OBJ3D.mesh.indicesFil), gl.STATIC_DRAW);
